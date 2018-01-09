@@ -4,6 +4,8 @@ import cv2
 from PIL import Image
 import scipy.misc
 import getWord
+import matplotlib.pyplot as plt
+
 
 def auto_canny(image, sigma=0.33):
 	# compute the median of the single channel pixel intensities
@@ -38,10 +40,14 @@ def run():
 	auto = auto_canny(blurred)
 
 	# show the images
-	'''cv2.imshow("Original", image)
-	cv2.imshow("Canny", auto)
-	cv2.waitKey(0)'''
+	# cv2.imshow("Original", image)
+	# cv2.imshow("Canny", auto)
+	# cv2.waitKey(0)
+	plt.imshow(image, cmap='gray')
+	plt.show()
 
+	plt.imshow(auto, cmap='gray')
+	plt.show()
 
 	#perform dilation on the image (to join all white spaces and form regions of text)
 	kernel = np.ones((8,8), np.uint8)  #can change value of 10 later
@@ -54,9 +60,10 @@ def run():
 	img_dilation = cv2.dilate(auto, kernel, iterations=1)
 	 
 	#cv2.imshow('Input', auto)
-	'''cv2.imshow('Dilation', img_dilation)
-	 
-	cv2.waitKey(0)'''
+	# cv2.imshow('Dilation', img_dilation) 
+	# cv2.waitKey(0)
+	plt.imshow(img_dilation, cmap='gray')
+	plt.show()
 
 
 	#detect region of text and crop it
@@ -135,6 +142,8 @@ def run():
 	crop_img = image[top:bot, lft:ryt]
 	'''cv2.imshow("cropped", crop_img)
 	cv2.waitKey(0)'''
+	plt.imshow(crop_img, cmap='gray')
+	plt.show()
 
 	# scipy.misc.imsave('outfile.jpg', crop_img)
 	scipy.misc.imsave('bwsample.jpg', crop_img)
