@@ -140,7 +140,7 @@ def trimAndPad(letter):
 
 
 
-def run(dict, theta1, theta2, imgfile):
+def getChar(dict, theta1, theta2, imgfile):
 
 	#imgfile = cv2.imread("myword.jpg")
 	# cv2.imshow("The image", imgfile)
@@ -150,7 +150,8 @@ def run(dict, theta1, theta2, imgfile):
 	# print(imgfile.shape)
 
 	#convert from 3d to 2d
-	imgfile=imgfile[:,:,0]
+	if imgfile.ndim==3:
+		imgfile=imgfile[:,:,0]
 	# print(imgfile.shape)
 
 
@@ -162,7 +163,7 @@ def run(dict, theta1, theta2, imgfile):
 	# plt.imshow(imgfile, cmap='gray')
 	# plt.show()
 
-	print("Now we need to divide letters in this word")
+	# print("Now we need to divide letters in this word")
 	matx, maty=imgfile.shape	
 	#print('The shape of this word is : '+str(matx)+' by '+str(maty))
 
@@ -185,7 +186,6 @@ def run(dict, theta1, theta2, imgfile):
 			break;
 
 	#from left
-	#from right
 	flag11=0
 	lmargin=0
 	for y in range(0,maty):
@@ -205,8 +205,8 @@ def run(dict, theta1, theta2, imgfile):
 
 	matx, maty=imgfile.shape
 
-	plt.imshow(imgfile, cmap='gray')
-	plt.show()
+	# plt.imshow(imgfile, cmap='gray')
+	# plt.show()
 
 	#print('The shape of this word is : '+str(matx)+' by '+str(maty))
 
@@ -242,10 +242,10 @@ def run(dict, theta1, theta2, imgfile):
 		#	print('letter from '+str(wordbg)+' to '+str(wordend))
 			thisword=imgfile[0:matx,wordbg:wordend]
 			thisword=trimAndPad(thisword)
-			# plt.imshow(thisword, cmap='gray')
-			# plt.show()
+			plt.imshow(thisword, cmap='gray')
+			plt.show()
 			letterval=predictChar(theta1,theta2,thisword)
-			print dict[letterval]
+			print dict[letterval],
 			i2=i2+threshold
 			#start i2 again from next word
 			while True:
@@ -267,16 +267,16 @@ def run(dict, theta1, theta2, imgfile):
 			#print('the last letter of this line is from '+str(wordbg)+' to '+str(maty))
 			lastword=imgfile[0:matx,wordbg:maty]
 			lastword=trimAndPad(lastword)
-			# plt.imshow(lastword, cmap='gray')
-			# plt.show()
+			plt.imshow(lastword, cmap='gray')
+			plt.show()
 			letterval=predictChar(theta1,theta2,lastword)
-			print dict[letterval]
+			print dict[letterval],
 			# scipy.misc.imsave('myword.jpg', lastword)
 			break;
 	return
 
-if __name__=="__main__":
-	print('trying to get characters')
+def run(img):
+	# print('trying to get characters')
 	dict = {1: '0', 2: '1', 3: '2', 4: '3', 5:'4',6:'5',7:'6',8:'7',9:'8',10:'9',
 		    11:'A',12:'B',13:'C',14:'D',15:'E',16:'F',17:'G',18:'H',19:'I',20:'J',
 		    21:'K',22:'L',23:'M',24:'N',25:'O',26:'P',27:'Q',28:'R',29:'S',30:'T',
@@ -288,9 +288,16 @@ if __name__=="__main__":
 	theta1=np.load('neural_network/theta1.npy')
 	theta2=np.load('neural_network/theta2.npy')
 
-	print(theta1.shape)
-	print(theta2.shape)
+	# print(theta1.shape)
+	# print(theta2.shape)
 
+	getChar(dict, theta1, theta2,  img)
+	print('    '),
+
+	
+
+if __name__=="__main__":
+	print('i am in main')
 	path="/home/soubhik/Desktop/OCR/allwords"
 	files= os.listdir (path)
 	#files.sort()
@@ -302,5 +309,7 @@ if __name__=="__main__":
 		# print('chk2')
 		imgfile=cv2.imread(imgpath)
 		# print('chk3')
-		run(dict, theta1, theta2,  imgfile)
+		run(imgfile)	
 		# print('\nnext')
+
+	
