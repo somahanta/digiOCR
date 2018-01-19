@@ -289,7 +289,10 @@ def run(img):
 	theta2=np.load('neural_network/theta2.npy')
 
 	# print(theta1.shape)
-	# print(theta2.shape)
+	# # print(theta2.shape)
+	# print('word in getChar is')
+	# plt.imshow(img, cmap='gray')
+	# plt.show()
 
 	getChar(dict, theta1, theta2,  img)
 	print('    '),
@@ -311,5 +314,9 @@ if __name__=="__main__":
 		# print('chk3')
 		run(imgfile)	
 		# print('\nnext')
+	# img = cv2.imread("wordSample.jpg")
+	# plt.imshow(img, cmap='gray')
+	# plt.show()
+	# run(img)
 
 	

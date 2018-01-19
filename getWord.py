@@ -180,6 +180,9 @@ def getWordImg():
 				lastword=thisline[0:matx,wordbg:maty]
 				plt.imshow(lastword, cmap='gray')
 				plt.show()
+				# cv2.imshow("word", lastword)
+				# cv2.waitKey(0)
+				# scipy.misc.imsave('/home/soubhik/Desktop/OCR/wordSample.jpg', lastword)
 				# scipy.misc.imsave('/home/soubhik/Desktop/OCR/allwords/myword'+str(mywordval)+'.jpg', lastword)
 				getCharacter.run(lastword)
 				#os.system('python getCharacter.py')
