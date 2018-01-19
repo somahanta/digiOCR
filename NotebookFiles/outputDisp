@@ -1,0 +1,18 @@
+python getImgLines.py
+('dimensions of the image is : ', (2339, 1653))
+2339
+1653
+topmost row with white = 202
+bottommost row with white = 851
+leftmost row with white = 156
+rightmost row with white = 1448
+<type 'numpy.ndarray'>
+(649, 1292, 3)
+(649, 1292)
+
+T h i S      i S      a      S a m p l e      
+
+t e X t      u S e d      f o r      
+
+t e S t i n g      t h e      o C R      
+
